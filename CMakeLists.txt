@@ -8,6 +8,9 @@ set (CMAKE_CXX_FLAGS "-ggdb3 -g3 -Wall")
 
 include_directories(${Test_SOURCE_DIR}/src)
 include_directories(${Test_SOURCE_DIR}/include)
+#include_directories(/usr/include/c++/4.8.3/)
+#include_directories(/usr/include/)
+
 
 file(GLOB src_files
     "src/*.cpp"
