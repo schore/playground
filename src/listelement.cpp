@@ -2,7 +2,7 @@
  * @file
  * @author gorg
  * @version 0.0
- * @date Sun 16 Nov 2014 11:01:21 PM CET
+ * @date Mon 17 Nov 2014 11:24:51 PM CET
  * @section LICENCE
  *
  * This program is free software; you can redistribute it and/or
@@ -16,17 +16,13 @@
  * General Public License for more details at
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @section DESCRIPTION
+ * @section list
  *
- * Just a header for getting all necessary includes for the list
+ * some minor initialisations for the listelment
  */
 
-#ifndef __LIST_H__
-#define __LIST_H__
-
-
-#include "listhook.h"
 #include "listelement.h"
 
-
-#endif //__LIST_H__
+ListElement::ListElement(const int priority) :
+    priority(priority)
+{}

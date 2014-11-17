@@ -21,14 +21,6 @@
 #include "listhook.h"
 #include "listelement.h"
 
-/**
- * Constructor of ListHook
- *
- *
- * @param parent Has dedicated parent, referene from here
- * @param hook dedicated entry point for this list
- * @return error code
- */
 ListHook::ListHook(ListElement &parent, ListHook * &hook) :
     parent(parent)
 {
@@ -54,7 +46,7 @@ ListHook::ListHook(ListElement &parent, ListHook * &hook) :
                 pList->next = this;
                 break;
             }
-            if (this->parent.getPriority() > pList->parent.getPriority()) {
+            if (this->parent.getPriority() > pList->getNext()->parent.getPriority()) {
                 this->next = pList->getNext();
                 pList->next = this;
                 break;

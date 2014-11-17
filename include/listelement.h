@@ -47,8 +47,8 @@ public:
      *          priority means the Element will be executed first.
      * @return error code
      */
-    ListElement (const int priority);
-    virtual ~ListElement ();
+    ListElement (const int priority=DEFAULT_PRIORITY);
+    virtual ~ListElement () {}
 
 
     /**
@@ -59,9 +59,17 @@ public:
      */
     virtual ErrorCode callback() { return NoError; }
 
+    /**
+     * Simple getter
+     * @return Priority of the list element
+     */
     int getPriority() const { return this->priority; }
 
 private:
+    /**
+     * Priority of the ListElement, bigger number means higher priority and
+     * is execute first.
+     */
     const int priority;
 };
 

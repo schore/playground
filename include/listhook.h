@@ -38,13 +38,28 @@ class ListElement;
 class ListHook
 {
 public:
+    /**
+     * Reference to the parent, public access possible. Makes it possible
+     * to access the parent directly
+     */
     ListElement &parent;
 
+    /**
+     * Constructor of List hook, initiate the hook and sort it into the
+     * List. The position in the List is generated from the priority in
+     * the ListElement.
+     *
+     * @param parent The element which should be hooked
+     * @param hook the List in which this element should be hooked into
+     */
     ListHook (ListElement &parent, ListHook * &hook);
     virtual ~ListHook () {}
 
-    ListHook *getNext() const { return this->getNext();}
+    ListHook *getNext() const { return this->next;}
 private:
+    /**
+     * pointer to the next element in the list
+     */
     ListHook *next;
 };
 

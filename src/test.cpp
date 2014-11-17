@@ -21,32 +21,71 @@
  * This is a simple Testprogramm for whatever
  * The main features are only test for my vim scripts
  * In my opinion it is a really powerfull editor
- * I want to use it at work ;-)
+ * maybe I want to use it at work ;-)
  */
 
-#include "list.h"
 #include <iostream>
+#include "list.h"
 using namespace std;
 
-/**
- * DESCRIPTION
- *
- * @param
- * @return error code
- */
+ListHook *hooka = NULL;
+ListHook *hookb = NULL;
+
+class ListChildA : public ListElement
+{
+public:
+    ListChildA () : ListElement(){}
+
+    virtual ErrorCode callback() {
+        cout << "List Child A" << endl;
+        return NoError;
+    }
+} childA;
+
+class ListChildB : public ListElement
+{
+public:
+    ListChildB () : ListElement(20){}
+
+    virtual ErrorCode callback() {
+        cout << "List Child B" << endl;
+        return NoError;
+    }
+} childB;
+
+
+class ListChildC : public ListElement
+{
+public:
+    ListChildC () : ListElement(25){}
+
+    virtual ErrorCode callback() {
+        cout << "List Child C" << endl;
+        return NoError;
+    }
+} childC;
+
+
+ListHook a(childA, hooka);
+ListHook b(childB, hooka);
+ListHook c(childC, hooka);
+
+ListHook d(childA, hookb);
+ListHook e(childB, hookb);
+ListHook f(childA, hookb);
+
 int main(){
+    cout << "hello!" << endl;
+    for (ListHook *pHook = hooka; pHook != NULL; pHook = pHook->getNext() )
+    {
+       pHook->parent.callback();
+       cout << pHook->parent.getPriority() << endl;
+    }
 
-    List *hook = NULL;
-
-    List a(hook, "a_50", 50);
-    List b(hook, "b_40", 40);
-    List c(hook, "c_45", 45);
-    List d(hook, "d_60", 60);
-    List e(hook, "e_55", 55);
-    List f(hook, "f_42", 42);
-
-    ITERATE_LIST(List, hook, var) {
-        cout << var->getName() << endl;
+    for (ListHook *pHook = hookb; pHook != NULL; pHook = pHook->getNext() )
+    {
+       pHook->parent.callback();
+       cout << pHook->parent.getPriority() << endl;
     }
  }
 
