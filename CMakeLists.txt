@@ -9,10 +9,18 @@ set (CMAKE_CXX_FLAGS "-ggdb3 -g3 -Wall")
 include_directories(${Test_SOURCE_DIR}/src)
 include_directories(${Test_SOURCE_DIR}/include)
 #include_directories(/usr/include/c++/4.8.3/)
-#include_directories(/usr/include/)
+include_directories(/usr/include/UnitTest++/)
 
 
 file(GLOB src_files
     "src/*.cpp"
     )
-add_executable(Test ${src_files})
+
+file(GLOB test_files
+    "tests/*.cpp"
+    )
+
+add_executable(main ${src_files} main.cpp)
+
+add_executable(test ${src_files} ${test_files})
+target_link_libraries(test UnitTest++)

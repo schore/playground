@@ -46,9 +46,11 @@ flags = [
     '-isystem',
     './include',
     '-isystem',
-    '/usr/include/'
+    '/usr/include/',
     '-isystem',
-    '/usr/local/include/'
+    '/usr/local/include/',
+    '-isystem',
+    '/usr/local/include/UnitTest++/'
 ]
 
 

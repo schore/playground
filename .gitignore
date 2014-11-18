@@ -6,3 +6,6 @@ Makefile
 Test
 cmake_install.cmake
 html/
+main
+test
+
