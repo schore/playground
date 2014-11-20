@@ -55,9 +55,12 @@ public:
      * This function has to be overwritten by the implementation
      * This is only a typesafe callback handler
      *
+     * @param msg pointer to message, message is only valid during the
+     * execution of the callback
+     * @param size of the message
      * @return error code
      */
-    virtual ErrorCode callback() { return NoError; }
+    virtual ErrorCode callback(const void *msg = NULL, int len=0) { return NoError; }
 
     /**
      * Simple getter

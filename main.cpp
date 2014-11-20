@@ -25,67 +25,20 @@
  */
 
 #include <iostream>
-#include "list.h"
+#include "subscriber.h"
+#include "pusher.h"
+#include "topic.h"
 using namespace std;
 
-ListHook *hooka = NULL;
-ListHook *hookb = NULL;
-
-class ListChildA : public ListElement
-{
-public:
-    ListChildA () : ListElement(){}
-
-    virtual ErrorCode callback() {
-        cout << "List Child A" << endl;
-        return NoError;
-    }
-} childA;
-
-class ListChildB : public ListElement
-{
-public:
-    ListChildB () : ListElement(20){}
-
-    virtual ErrorCode callback() {
-        cout << "List Child B" << endl;
-        return NoError;
-    }
-} childB;
-
-
-class ListChildC : public ListElement
-{
-public:
-    ListChildC () : ListElement(25){}
-
-    virtual ErrorCode callback() {
-        cout << "List Child C" << endl;
-        return NoError;
-    }
-} childC;
-
-
-ListHook a(childA, hooka);
-ListHook b(childB, hooka);
-ListHook c(childC, hooka);
-
-ListHook d(childA, hookb);
-ListHook e(childB, hookb);
-ListHook f(childA, hookb);
-
+Pusher<int> push;
+Pusher<int> pusha;
+Pusher<int> pushb;
+Topic<int> test(1);
+Subscriber<int> sub(test, push);
+Subscriber<int> suba(test, pusha);
+Subscriber<int> subb(test, pushb);
 int main(){
-    cout << "hello!" << endl;
-    for (ListHook *pHook = hooka; pHook != NULL; pHook = pHook->getNext() )
-    {
-       pHook->parent.callback();
-       cout << pHook->parent.getPriority() << endl;
-    }
-
-    for (ListHook *pHook = hookb; pHook != NULL; pHook = pHook->getNext() )
-    {
-       pHook->parent.callback();
-       cout << pHook->parent.getPriority() << endl;
-    }
+    int i = 20;
+    test.publish(i);
  }
 

@@ -32,8 +32,10 @@ enum ErrorCode {
     //Error Code for List
     ListNoHookFound,
     ListHookFailed,
-    ListAlreadyHooked,
     ListFull,
+    //Error Code for Subscriber
+    SubParamFail,
+    SubDataNULL,
 };
 
 #include <iostream>

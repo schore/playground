@@ -2,7 +2,7 @@
  * @file
  * @author gorg
  * @version 0.0
- * @date Thu 13 Nov 2014 02:07:11 PM CET
+ * @date Thu 20 Nov 2014 08:22:15 PM CET
  * @section LICENCE
  *
  * This program is free software; you can redistribute it and/or
@@ -16,18 +16,28 @@
  * General Public License for more details at
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @section DESCRIPTION
+ * @section pubsub
  *
- *
+ * just a base class for receiver from Topic
  */
-#ifndef __STDDEF_H__
-#define __STDDEF_H__
+
+#ifndef __pusher_h__
+#define __pusher_h__
+
+#include "errorhelper.h"
+
+template <class T>
+class Pusher
+{
+public:
+    Pusher () {}
+    virtual ~Pusher () {}
+
+    ErrorCode callback(T *) {
+        return NoError;
+    }
+private:
+};
 
 
-#ifndef NULL
-#define NULL 0
-#endif
-
-
-
-#endif
+#endif //__pusher_h__

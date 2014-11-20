@@ -21,24 +21,35 @@
 #include "listhook.h"
 #include "listelement.h"
 
-ListHook::ListHook(ListElement &parent, ListHook * &hook) :
+ListHook::ListHook(ListElement &parent, ListHook **hook) :
     parent(parent)
 {
-    ListHook *pList = hook;
+    this->hookInit(parent, hook);
+}
+
+ListHook::ListHook(ListElement &parent, ListHook *&hook) :
+    parent(parent)
+{
+    this->hookInit(parent, &hook);
+}
+
+
+void ListHook::hookInit(ListElement &parent, ListHook **hook) {
+    ListHook *pList = *hook;
 
     //Intialisation
     this->next = NULL;
 
     //no elements in the list
-    if (hook == NULL) {
-        hook = this;
+    if (*hook == NULL) {
+        *hook = this;
     }
     else {
         //First element in the list
         if (this->parent.getPriority() > pList->parent.getPriority())
         {
-            this->next = hook;
-            hook = this;
+            this->next = *hook;
+            *hook = this;
         }
         else while(true) {
             //End of List reached

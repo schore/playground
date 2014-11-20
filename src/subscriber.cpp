@@ -2,7 +2,7 @@
  * @file
  * @author gorg
  * @version 0.0
- * @date Thu 13 Nov 2014 12:53:14 AM CET
+ * @date Wed 19 Nov 2014 07:11:07 PM CET
  * @section LICENCE
  *
  * This program is free software; you can redistribute it and/or
@@ -16,14 +16,12 @@
  * General Public License for more details at
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @section DESCRIPTION
+ * @section pubsub
  *
- * Just another Testfile for doxygen
+ * A simple publisher subscriber protocol
  */
-#include <func_2.h>
 
-
-
-int func_2(int a, int b) {
-    return (a*a+2*a*b+b*b);
-}
+#include "topic.h"
+#include "subscriber.h"
+GenSubscriber::GenSubscriber(GenTopic &top) :
+   ListHook(*this, top.getHook()), ListElement(1) {}

@@ -53,6 +53,7 @@ public:
      * @param hook the List in which this element should be hooked into
      */
     ListHook (ListElement &parent, ListHook * &hook);
+    ListHook (ListElement &parent, ListHook **hook);
     virtual ~ListHook () {}
 
     ListHook *getNext() const { return this->next;}
@@ -60,10 +61,11 @@ private:
     /**
      * pointer to the next element in the list
      */
+    void hookInit(ListElement &parent, ListHook ** hook);
     ListHook *next;
 };
 
-//#define ITERATE_LIST(_TYPE, _HOOK, _VAR)    for (_TYPE * _VAR = _HOOK; _VAR != NULL; _VAR = _VAR->getNext(_HOOK))
+#define ITERATE_LIST(_TYPE, _HOOK, _VAR)    for (_TYPE * _VAR = _HOOK; _VAR != NULL; _VAR = _VAR->getNext())
 
 
 #endif

@@ -73,18 +73,85 @@ SUITE(ListTests) {
 
 
         last_prio = hooka->parent.getPriority();
-        for (ListHook *pHook = hooka; pHook != NULL; pHook = pHook->getNext() )
+        ITERATE_LIST(ListHook, hooka, pHook)
         {
             CHECK(pHook->parent.getPriority() <= last_prio);
             last_prio = pHook->parent.getPriority();
         }
 
         last_prio = hookb->parent.getPriority();
-        for (ListHook *pHook = hookb; pHook != NULL; pHook = pHook->getNext() )
+        ITERATE_LIST(ListHook, hookb, pHook)
         {
             CHECK(pHook->parent.getPriority() <= last_prio);
             last_prio = pHook->parent.getPriority();
         }
+
+
+        CHECK(true);
+    }
+
+    TEST(ListCheck2) {
+        ListHook *hooka = NULL;
+        ListHook *hookb = NULL;
+
+        int last_prio;
+
+        class ListChildA : public ListElement
+        {
+        public:
+            ListChildA () : ListElement(){}
+
+            virtual ErrorCode callback() {
+                return NoError;
+            }
+        } childA;
+
+        class ListChildB : public ListElement
+        {
+        public:
+            ListChildB () : ListElement(20){}
+
+            virtual ErrorCode callback() {
+                return NoError;
+            }
+        } childB;
+
+
+        class ListChildC : public ListElement
+        {
+        public:
+            ListChildC () : ListElement(25){}
+
+            virtual ErrorCode callback() {
+                return NoError;
+            }
+        } childC;
+
+
+        ListHook a(childA, &hooka);
+        ListHook b(childB, &hooka);
+        ListHook c(childC, &hooka);
+
+        ListHook d(childA, &hookb);
+        ListHook e(childB, &hookb);
+        ListHook f(childA, &hookb);
+
+
+        last_prio = hooka->parent.getPriority();
+
+        ITERATE_LIST(ListHook, hooka, pHook)
+        {
+            CHECK(pHook->parent.getPriority() <= last_prio);
+            last_prio = pHook->parent.getPriority();
+        }
+
+        last_prio = hookb->parent.getPriority();
+        ITERATE_LIST(ListHook, hookb, pHook)
+        {
+            CHECK(pHook->parent.getPriority() <= last_prio);
+            last_prio = pHook->parent.getPriority();
+        }
+
 
         CHECK(true);
     }

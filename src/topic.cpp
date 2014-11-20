@@ -2,7 +2,7 @@
  * @file
  * @author gorg
  * @version 0.0
- * @date Thu 13 Nov 2014 12:54:15 AM CET
+ * @date Wed 19 Nov 2014 07:36:04 PM CET
  * @section LICENCE
  *
  * This program is free software; you can redistribute it and/or
@@ -16,13 +16,24 @@
  * General Public License for more details at
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @section DESCRIPTION
+ * @section pubsub
  *
- * Header File for bla
+ * A simple implementation of an publisher subscriber protocol
  */
-#ifndef __FUNC_2_H__
-#define __FUNC_2_H__
 
-int func_2(int a, int b=2);
+#include "topic.h"
+#include "subscriber.h"
+#include "list.h"
 
-#endif
+
+GenTopic::GenTopic(int topicId) {
+}
+
+ErrorCode GenTopic::publish(void *msg, int len) {
+
+    ITERATE_LIST(ListHook, this->pSubscriber, pSub) {
+        pSub->parent.callback(msg, len);
+    }
+
+    return NoError;
+}
